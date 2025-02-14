@@ -1,0 +1,162 @@
+from datetime import datetime, timedelta
+
+def choice_of_day():
+    while(True):   
+        print("When do you want to watch the movie?")
+        print("1.", tomorrow.strftime('%d-%m-%Y'),"(tomorrow)")
+        print("2.", day_after_tomorrow.strftime('%d-%m-%Y'),"(day_after_tomorrow)")
+    
+        day_choice = int(input("Input the choice number here: "))
+        print()
+    
+        if (day_choice < 1 or day_choice > 2):
+            print("Please input a correct choice.")
+            break
+        
+        print("----------------------------------------------------------------------------------")
+        print("Your inputted choice is "+str(day_choice)+".")
+        print("Are you sure that you have typed it correctly?")
+        decision = input("Please enter Yes or No: ")
+    
+        if decision.upper() == "YES":
+              break
+        else:
+            print()
+            print("Please enter the correct choice")
+            print()
+    
+    return day_choice
+
+def movie_confirmation(movies, time, cost, screen):
+    print("----------------------------------------------------------------------------------------------------")
+    print("We have the following movies being played on your preffered day in your preffered resolution")
+    print("----------------------------------------------------------------------------------------------------")
+    
+    for i in range(0,4):
+            print(movies[i]+" at "+time[i]+" with cost being: "+str(cost[i])+" INR.")
+            print()
+            
+    print("----------------------------------------------------------------------------------------------------")
+   
+    while(True):
+        
+        while(True):
+            movie_choice = int(input("Please enter your preffered movie choice number: "))
+            
+            if (movie_choice not in range(1, 5)):
+                print("Please enter a valid option here: ")
+            else:
+                break
+        
+        
+    
+        print("You have chosen "+movies[(movie_choice-1)])
+    
+        print("Are you sure that you have typed it correctly? ")
+        decision = input("Please enter Yes or No: ")
+    
+        if decision.upper() == "YES":
+            print("----------------------------------------------------------------------------------")
+            tickets = int(input("How many tickets do you want? "))
+
+            
+            print("The total amount you have to pay is "+str((cost[movie_choice-1]*tickets))+" INR")
+            decision = input("Are you sure to proceed? ")
+            
+            if decision.upper() == "YES":
+                print("----------------------------------------------------------------------------------")
+                print("You will be watching your movie in screen "+str(screen)+".")
+                print("Your seat details would be sent to you shorlty.")
+                print("You will be directed to payment page.")
+                print("Thank you for choosing our online portal.")
+                print("----------------------------------------------------------------------------------")
+                break
+            
+            else:
+                print("Thank you for choosing our online portal")
+                break
+        else:
+            print("Please choose correctly.")
+            print()
+
+#pre-requisite data
+movie_s1_day1 = ["1.Spider Man No Way Home", "2.Superman", "3.Flashpoint", "4.Tommorow War"]
+movie_s1_day2 = ["1.Avatar", "2.Eternals", "3.MS Dhoni Untold Story", "4.Batman"]
+movie_s2_day1 = ["1.Spider Man No Way Home", "2.Superman", "3.Tommorow War", "4.Flashpoint"]
+movie_s2_day2 = ["1.Avatar", "2.Eternals", "3.MS Dhoni Untold Story", "4.Batman"]
+
+timing = ["9.00-11:50 AM", "2:00-4.50 PM", "5:00-7.50 PM", "9.00-11.50 PM"]
+
+vacancy_s1_day1 = [16, 24, 22, 18]
+vacancy_s1_day2 = [24, 22, 13, 17]
+vacancy_s2_day1 = [17, 14, 12, 17]
+vacancy_s2_day2 = [17, 18, 26, 18]
+
+cost_s1_day1 = [250, 150, 200, 200]
+cost_s1_day2 = [150, 200, 150, 300]
+cost_s2_day1 = [400, 300, 350, 350]
+cost_s2_day2 = [300, 450, 300, 450]
+
+day_choice = 0
+
+#imtroductory message
+print("Hi welcome to LKR online movie ticket booking portal: ")
+print("We have two screens where screen 1 is dedicated to 3-D movies and screen 2 is for standard resolution")
+print("You can book tickets for tommorow and day after tommorow here: ")
+print("----------------------------------------------------------------------------------------------------")
+
+#printing the list of movies
+presentday = datetime.now()
+tomorrow = presentday + timedelta(1)
+day_after_tomorrow = presentday + timedelta(2)
+
+print("We have the following movies being played on these days:")
+print(tomorrow.strftime('%d-%m-%Y'),"(tomorrow)")
+
+for movie in movie_s1_day1:
+    print(movie)
+
+print("----------------------------------------------------------------------------------------------------")
+print(day_after_tomorrow.strftime('%d-%m-%Y'),"(day after tomorrow)")
+
+for movie in movie_s1_day2:
+
+
+    print(movie)
+
+print("----------------------------------------------------------------------------------------------------")
+
+#getting the choice of day from user
+while(day_choice < 1 or day_choice > 2):
+    day_choice = choice_of_day()
+
+print("----------------------------------------------------------------------------------------------------")
+
+#confirming movies as per the day of interest
+if day_choice == 1:
+    
+    while(True):
+        desicion=int(input("Enter 3 if you want to watch the movie in 3-D\nPress 2 to watch the movie in 2-D: "))
+        
+        if desicion == 3:
+            movie_confirmation(movie_s2_day1, timing, cost_s2_day1, 2)
+            break
+        
+        elif desicion == 2:
+            movie_confirmation(movie_s1_day1, timing, cost_s1_day1, 1)
+            break
+        
+        else:
+            print("Please enter a correct choice")
+            
+else:
+    while(True):
+        desicion=int(input("Enter 3 if you want to watch the movie in 3-D\nPress 2 to watch the movie in 2-D: "))
+        if desicion == 3:
+            movie_confirmation(movie_s2_day1, timing, cost_s2_day1, 2)
+            break
+        elif desicion == 2:
+            movie_confirmation(movie_s1_day2, timing, cost_s1_day2, 1)
+            break
+        else:
+            print("Please enter a correct choice")
